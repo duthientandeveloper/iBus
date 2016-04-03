@@ -1,0 +1,35 @@
+doctype html
+html(ng-app='iBus')
+	head
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title= title
+		link(rel='stylesheet', href='/bootstrap/css/amelia.bootstrap.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+	body
+		.navbar.navbar-default.navbar-fixed-top
+			.container
+				.navbar-header
+					a.navbar-brand(href='/') IBus
+					button.navbar-toggle(type='button', data-toggle='collapge', data-target='#navbar-main')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+				#navbar-main.navbar-collapse.collapse
+					ul.nav.navbar-nav
+						li
+							a(href='/about') About
+						li
+							a(href='/#routestation') RouteStation
+		.container
+			div(ng-view)
+				block content
+				footer
+					.row
+						.col-xs-12
+						small &copy; Ho Chi Minh University of Technology 2016
+	script(src='/angular/angular.min.js')
+	script(src='/lib/angular-route.min.js')
+	script(src='/app.js')
+	script(src='/routeStation/routeStation.controller.js')
+	script(src='/javascripts/jquery-1.11.1.min.js')
+	script(src='/bootstrap/js/bootstrap.min.js')

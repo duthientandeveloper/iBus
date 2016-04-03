@@ -1,0 +1,17 @@
+<navigation></navigation>
+<div class="container">
+	<div class="row">
+		<p class="col-lg-1">Route</p>
+		<select class="col-lg-5" 
+				ng-options="'\['+route.Code+'\] ' + route.Name for route in routes" 
+				ng-model="selectedRoute" ng-change="updateRoute(selectedRoute.Id)" ></select>
+		<p class="col-lg-1">Station</p>
+		<select class="col-lg-5"
+				ng-options="'\['+station.Id+'\] ' + station.Station.Name for station in stations" 
+				ng-model="selectedStation" ng-change="updateStation(selectedStation.Order)" ></select>
+	</div>
+	<div class="row">
+		<leaflet lf-center="london" markers="markers" paths="paths" width="100%" height="480px"></leaflet>
+	</div>
+</div> 
+<footer-generic></footer-generic>
