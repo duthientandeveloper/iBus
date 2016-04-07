@@ -13,10 +13,6 @@ require('./app_api/models/db');
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'app_server', 'views'));
-app.set('view engine', 'jade');
-
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -26,10 +22,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'app_client')));
 app.use('/api', api);
 app.use(function(req, res) {
-  res.sendFile(path.join(__dirname, 'app_client', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // catch 404 and forward to error handler
