@@ -1,11 +1,10 @@
-angular.module('iBus', ['ngRoute','leaflet-directive']);
+angular.module('iBus', ['ngRoute','leaflet-directive','ngMaterial','ngMessages']);
 
 function config($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
 			templateUrl: 'views/home.view.html',
-			controller: 'homeCtrl',
-			controllerAs: 'vm'
+			controller: 'LeftCtrl'
 		})
 		.when('/routeStation', {
 			templateUrl: 'views/routeStation.view.html',

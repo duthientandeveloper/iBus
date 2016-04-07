@@ -3,6 +3,9 @@ angular
 	.controller('routeStationCtrl', routeStationCtrl);
 
 function routeStationCtrl($scope, $log, getRoute, getStop) {
+	$scope.pageHeader = {
+        title: 'iBus'
+    };
 	var polPaths = [];
 	$scope.markers = [];
 	$scope.paths = {};

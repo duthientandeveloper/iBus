@@ -1,10 +1,9 @@
 angular
 	.module('iBus')
-	.controller('homeCtrl', homeCtrl);
-
-function homeCtrl($scope) {
-	var vm = this;
-	vm.pageHeader = {
-		title: 'iBus'
-	};
-}
+	.controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
+		$scope.close = function() {
+			$mdSidenav('left').close().then(function() {
+				$log.debug("close LEFT is done");
+			});
+		};
+	});
