@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var ctrlStation = require('../controllers/stations');
+var ctrlStation = require('../controllers/stationCtrl');
 
 router.get('/routes', function(req, res, next) {
 	request({

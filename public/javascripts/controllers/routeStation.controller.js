@@ -1,61 +1,80 @@
+/*jshint esversion: 6 */
 angular
 	.module('iBus')
 	.controller('routeStationCtrl', routeStationCtrl);
 
-function routeStationCtrl($scope, $log, getRoute, getStop) {
-	$scope.pageHeader = {
-        title: 'iBus'
-    };
+function routeStationCtrl($scope, $log, $mdMedia,$window, getRoute, getStation) {
+	$scope.width = '100%';
 	var polPaths = [];
+	$scope.stateSideNav = $mdMedia('gt-md');
+	$scope.isLoading = false;
+	$scope.routeId = null;
+	$scope.routes = null;
+	$scope.stationSelected = null;
+	$scope.stations = null;
 	$scope.markers = [];
 	$scope.paths = {};
-	$scope.stations ={};
-	$scope.london = {
+	$scope.focus = {
 		lat: 10.755769,
 		lng: 106.713852,
 		zoom: 14
 	};
-	getRoute.listRoute()
-		.success(function(data) {
-			$scope.routes = data;
-			$scope.selectedRoute = data[0];
-			$scope.updateRoute($scope.selectedRoute.Id);
-		})
-		.error(function(error) {
-			$scope.message = error;
-		});
-	$scope.updateRoute = function(id) {
-		getStop.listStop(id)
-			.success(function(data) {
-				$scope.stations = data;
-				$scope.selectedStation = data[0];
-				$scope.removeMarkers();
-				polPaths = [];
-				for (var i = 0; i < data.length; i++) {
-					$scope.london = {
-						lat: data[0].Station.Lat,
-						lng: data[0].Station.Lng,
-						zoom: 14
-					};
-					$scope.markers.push({
-						lat: data[i].Station.Lat,
-						lng: data[i].Station.Lng,
-						message: data[i].Station.Name,
-						focus: false
+	$scope.loadRoute = () => {
+		if (!$scope.routes) {
+			return getRoute.listRoute()
+				.success((data) => {
+					$scope.routes = data;
+				})
+				.error((error) => {
+					$scope.message = error;
+				});
+		} else
+			return $scope.routes;
+	};
+	$scope.$watch('routeId', function(vNew, vOld) {
+		if (vNew) {
+			$scope.isLoading = true;
+			getStation.listStation(vNew)
+				.success(function(data) {
+					$scope.isLoading = false;
+					$scope.stations = $scope.sortData(data);
+					$scope.removeMarkers();
+					$scope.insertMarkers($scope.stations);
+				})
+				.error(function(error) {
+					$scope.message = error;
+				});
+		}
+	});
+	$scope.change = () => {
+		$scope.stateSideNav = $scope.stateSideNav ? false : true;
+	};
+	$scope.removeMarkers = function() {
+		$scope.markers = [];
+		polPaths = [];
+	};
+	$scope.insertMarkers = function(data) {
+		for (var i = 0; i < data.length; i++) {
+			$scope.focus = {
+				lat: data[0].lat,
+				lng: data[0].lng,
+				zoom: 14
+			};
+			$scope.markers.push({
+				lat: data[i].lat,
+				lng: data[i].lng,
+				message: data[i].name,
+				focus: false
+			});
+			if (data[i].polyline.length !==0) {
+				for (var j = 0; j < data[i].polyline.length; j++) {
+					polPaths.push({
+						lat: data[i].polyline[j].lat,
+						lng: data[i].polyline[j].lng
 					});
-					if (data[i].PolyLine !== null) {
-						var tmp = [];
-						tmp = polyline.decode(data[i].PolyLine);
-						for (var j = 0; j < tmp.length; j++) {
-							polPaths.push({
-								lat: tmp[j][1],
-								lng: tmp[j][0]
-							});
-						}
-
-					}
 				}
-				$scope.paths = {
+			}
+			$scope.paths = {
 					p1: {
 						type: "polyline",
 						color: 'red',
@@ -63,28 +82,13 @@ function routeStationCtrl($scope, $log, getRoute, getStop) {
 						latlngs: polPaths
 					}
 				};
-				$scope.updateStation($scope.selectedStation.Order);
-			})
-			.error(function(error) {
-				$scope.message = error;
-			});
-	};
-	$scope.removeMarkers = function() {
-		$scope.markers = [];
-	};
-	$scope.updateStation = function(id) {
-		$scope.london = {
-			lat: $scope.stations[id].Station.Lat,
-			lng: $scope.stations[id].Station.Lng,
-			zoom: 14
-		};
-		for (var i = 0; i < $scope.markers.length; i++) {
-			if ($scope.markers[i].focus) {
-				$scope.markers[i].focus=false;
-			}
 		}
-		$scope.markers[id].focus=true;
-
 	};
-
+	$scope.sortData = function(data){
+		var result = new Array(data.length);
+		for (var i = 0; i < data.length; i++) {
+			result[data[i].oder]=data[i];
+		}
+		return result;
+	};
 }

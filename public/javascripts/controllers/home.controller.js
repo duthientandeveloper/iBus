@@ -2,8 +2,6 @@ angular
 	.module('iBus')
 	.controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
 		$scope.close = function() {
-			$mdSidenav('left').close().then(function() {
-				$log.debug("close LEFT is done");
-			});
+			$scope.mess ="Hello";
 		};
 	});

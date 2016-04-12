@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-var Station = require('../models/stations');
-var Route = require('../models/routes');
+var Station = require('../models/station');
+var Route = require('../models/route');
 var request = require('request');
 var async = require('async');
 var htmlparser = require("htmlparser2");
@@ -221,14 +221,16 @@ module.exports.downloadAllStation = function(req, res, next) {
 			downloadStation(url, callback);
 		});
 	});
-	async.series(asyncTasks);
+	async.series(asyncTasks,function(){
+		res.send();
+	});
 };
 
 module.exports.downloadAllRoute = function(req, res, next) {
 	var asyncTasks=[];
-	asyncTasks.push(function(callback) {
-		downloadRoute(callback);
-	});
+	// asyncTasks.push(function(callback) {
+	// 	downloadRoute(callback);
+	// });
 	asyncTasks.push(function(callback) {
 		downloadInfoRoute(callback);
 	});

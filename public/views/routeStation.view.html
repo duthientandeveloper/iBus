@@ -1,14 +1,30 @@
-<navigation></navigation>
-<div class="container">
-	<page-header content="pageHeader"></page-header>
-	<div class="row">
-		<leaflet lf-center="london" markers="markers" paths="paths" width="100%" height="480px"></leaflet>
-	</div>
-	<p class="col-lg-1">Route</p>
-	<select class="col-lg-5" ng-options="'\['+route.Code+'\] ' + route.Name for route in routes" ng-model="selectedRoute" ng-change="updateRoute(selectedRoute.Id)"></select>
-	<p class="col-lg-1">Station</p>
-	<select class="col-lg-5" ng-options="'\['+station.Id+'\] ' + station.Station.Name for station in stations" ng-model="selectedStation" ng-change="updateStation(selectedStation.Order)"></select>
-
-
-	<footer-generic></footer-generic>
+<div ng-controller="routeStationCtrl">
+    <navigation></navigation>
+    <div layout="row">
+        <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="stateSideNav" md-disable-backdrop="" md-whiteframe="4">
+                <label style="color: #01579b;font-size: 150%; margin: 0 ; padding: 0;">Tuyến xe</label>
+                <md-input-container style="margin: 0 ; padding: 0;">
+                    <md-select placeholder="Choise Route" ng-model="routeId" md-on-open="loadRoute()" style="font-size: 120%;font-weight: bold;">
+                        <md-option value="{{route.oderRoute}}" ng-repeat="route in routes" val>[{{route.idRoute}}] {{route.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <div layout="row" style="margin: 0 ;">
+                    <label flex style="color: #01579b; font-size: 150%">Trạm chờ</label>
+                    <md-switch flex style="margin: 0 ;" ng-model="data.cb1" aria-label="Lượt">
+                        <p style="color: #01579b;font-size: 120%; padding-top: 10px">Lượt đi</p>
+                    </md-switch>
+                </div>
+            <md-content  style="height:520px; margin: 0 ;">
+                <div ng-show="isLoading" layout="row" layout-align="space-around">
+                    <md-progress-circular md-diameter="96"></md-progress-circular>
+                </div>
+                <md-list-item ng-model="stationSelected" ng-repeat="station in stations" ng-click="akc()" >
+                    <p style="font-weight: bold;"> [{{station.oder}}] {{ station.name }} </p>
+                </md-list-item>
+            </md-content>
+        </md-sidenav>
+        <div layout="column" flex>
+            <leaflet lf-center="focus" markers="markers" paths="paths" width="{{width}}" height="620px"></leaflet>
+        </div>
+    </div>
 </div>

@@ -1,6 +1,9 @@
-angular.module('iBus', ['ngRoute','leaflet-directive','ngMaterial','ngMessages']);
+angular.module('iBus', ['ngRoute', 'leaflet-directive', 'ngMaterial', 'ngMessages']);
 
-function config($routeProvider, $locationProvider) {
+function config($routeProvider, $locationProvider, $mdThemingProvider) {
+	$mdThemingProvider.theme('default')
+		.primaryPalette('indigo')
+		.accentPalette('teal');
 	$routeProvider
 		.when('/', {
 			templateUrl: 'views/home.view.html',
@@ -20,4 +23,4 @@ function config($routeProvider, $locationProvider) {
 }
 angular
 	.module('iBus')
-	.config(['$routeProvider', '$locationProvider', config]);
+	.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', config]);
