@@ -225,14 +225,19 @@ module.exports.downloadAllStation = function(req, res, next) {
 		res.send();
 	});
 };
-
-module.exports.downloadAllRoute = function(req, res, next) {
+module.exports.downloadInfRoute =function (req,res,next) {
 	var asyncTasks=[];
-	// asyncTasks.push(function(callback) {
-	// 	downloadRoute(callback);
-	// });
 	asyncTasks.push(function(callback) {
 		downloadInfoRoute(callback);
+	});
+	async.series(asyncTasks, function() {
+		res.send();
+	});
+};
+module.exports.downloadAllRoute = function(req, res, next) {
+	var asyncTasks=[];
+	asyncTasks.push(function(callback) {
+		downloadRoute(callback);
 	});
 	async.series(asyncTasks, function() {
 		res.send();

@@ -11,7 +11,7 @@ router.get('/routes', function(req, res, next) {
 		followRedirect: true,
 		maxRedirects: 10
 	}, function(error, response, body) {
-		var data = JSON.parse(body); 
+		var data = JSON.parse(body);
 		res.json(data);
 	});
 });
@@ -31,6 +31,7 @@ router.get('/stops', function(req, res, next) {
 });
 
 router.get('/downloadstation',ctrlStation.downloadAllStation);
+router.get('/downloadinfroute',ctrlStation.downloadInfRoute);
 router.get('/downloadroute',ctrlStation.downloadAllRoute);
 router.get('/route',ctrlStation.getRoute);
 router.get('/station',ctrlStation.getStation);
