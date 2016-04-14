@@ -222,8 +222,9 @@ module.exports.downloadAllStation = function(req, res, next) {
 		});
 	});
 	async.series(asyncTasks,function(){
-		res.send();
+		console.log("route updated");
 	});
+	res.send();
 };
 module.exports.downloadInfRoute =function (req,res,next) {
 	var asyncTasks=[];
