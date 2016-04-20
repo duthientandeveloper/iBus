@@ -58,6 +58,10 @@ function downloadStation(url, callback) {
 				var lat = parseFloat(data.TABLE[0].ROW[i].COL[8].DATA);
 				var lng = parseFloat(data.TABLE[0].ROW[i].COL[9].DATA);
 				var title = data.TABLE[0].ROW[i].COL[10].DATA;
+				var nextId=0;
+				if((i+1)<data.TABLE[0].ROW.length){
+					 nextId = parseInt(data.TABLE[0].ROW[i+1].COL[1].DATA);
+				}
 				var newStation = Station({
 					idRoute: idRoute,
 					id: id,
@@ -69,7 +73,8 @@ function downloadStation(url, callback) {
 					name: name,
 					lat: lat,
 					lng: lng,
-					title: title
+					title: title,
+					nextId:nextId
 				});
 				newStation.save(getError());
 

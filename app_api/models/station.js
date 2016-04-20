@@ -51,6 +51,10 @@ var stationSchema = new mongoose.Schema({
 	title: {
 		type: String,
 		required: true
+	},
+	nextId: {
+		type: Number,
+		required: true
 	}
 });
 
