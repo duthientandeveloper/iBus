@@ -1,17 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+'use strict';
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import routes from './app_server/routes/index';
+import users from './app_server/routes/users';
+import api from './app_api/routes/index';
+import './app_api/models/db';
 
-var routes = require('./app_server/routes/index');
-var users = require('./app_server/routes/users');
-var api = require('./app_api/routes/index');
-
-require('./app_api/models/db');
-
-var app = express();
+const app = express();
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -59,4 +58,4 @@ app.use(function(err, req, res, next) {
 });
 
 
-module.exports = app;
+export default app;
