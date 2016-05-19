@@ -12,5 +12,6 @@ router.get('/downloadroute',ctrlStation.downloadAllRoute);
 router.get('/route',ctrlStation.getRoute);
 router.get('/station',ctrlStation.getStation);
 router.get('/initgraph',ctrlGraph.init);
+router.get('/graph',ctrlGraph.getGraph);
 
 export default router;

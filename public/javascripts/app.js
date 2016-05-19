@@ -13,6 +13,10 @@ function config($routeProvider, $locationProvider, $mdThemingProvider) {
 			templateUrl: 'views/routeStation.view.html',
 			controller: 'routeStationCtrl'
 		})
+		.when('/findPath',{
+			templateUrl:'views/findPath.view.html',
+			controller:'findPathCtrl'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
