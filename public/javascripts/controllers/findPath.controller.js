@@ -6,10 +6,8 @@ function findPathCtrl($scope, $log, $mdMedia, $window, getGraph) {
     $scope.width = '100%';
     $scope.stateSideNav = $mdMedia('gt-md');
     $scope.isLoading = false;
-    $scope.routeId = null;
-    $scope.routes = null;
-    $scope.stationSelected = null;
-    $scope.stations = null;
+    $scope.staionIdStart = null;
+    $scope.staionIdEnd = null;
     $scope.markers = [];
     $scope.paths = {};
     $scope.focus = {
@@ -17,16 +15,23 @@ function findPathCtrl($scope, $log, $mdMedia, $window, getGraph) {
         lng: 106.713852,
         zoom: 14
     };
-    $scope.loadRoute = () => {
+    $scope.loadStaion = () => {
 		if (!$scope.routes) {
 			return getGraph.listGraph()
 				.success((data) => {
-					$scope.routes = data;
+					$scope.stations = data;
 				})
 				.error((error) => {
 					$scope.message = error;
 				});
 		} else
-			return $scope.routes;
+			return $scope.stations;
 	};
+    $scope.findPath=function () {
+        if($scope.staionIdStart!=null&&staionIdEnd!=null){
+            
+        }else{
+            $window.alert('Chon tram');
+        }
+    }
 }
