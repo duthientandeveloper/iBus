@@ -37,7 +37,7 @@ module.exports.init = function (req, res, next) {
               });
             }
           },
-          (id,name,polyline,distance,belongRoute,nextStation,lat,lng,callback)=>{
+          (id,name,polyline,distance,belongRoute,nextStation,lat,lng,callback)=>{ 
             let newGraph = Graph({
             id: idStation,
             name: name,
@@ -72,4 +72,17 @@ module.exports.getGraph = function (req, res, next) {
     if (err) console.log(err);
     else res.json(result);
   })
+}
+
+module.exports.searchText=function (req,res,next) {
+  var text = req.query.text;
+  Graph.find({ $text: { $search: text } })
+ .limit(10)
+ .exec(function (err, items) {
+    var result=[];
+    items.forEach(function (item) {
+      result.push({id:item.id,name:item.name})
+    })
+    res.json(result);
+});
 }

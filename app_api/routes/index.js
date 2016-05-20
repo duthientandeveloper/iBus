@@ -14,4 +14,6 @@ router.get('/station',ctrlStation.getStation);
 router.get('/initgraph',ctrlGraph.init);
 router.get('/graph',ctrlGraph.getGraph);
 router.get('/findPath',findPath.findPath);
+router.get('/searchName',ctrlGraph.searchText)
+
 export default router;

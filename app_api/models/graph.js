@@ -28,5 +28,5 @@ var graphSchema = new mongoose.Schema({
 	lat:Number,
 	lng:Number
 });
-
+graphSchema.index({name:'text'});
 module.exports = mongoose.model('Graph',graphSchema);

@@ -12,7 +12,11 @@ function getBestId(queue) {
 }
 
 function findPath(prev, dist, start, target, vertices) {
-	
+	console.log(pre);
+    console.log(dist);
+    console.log(start);
+    console.log(vertices);
+    console.log(target);
     var path = [];
     path.unshift({id: target, dist: dist[target], name: vertices[target]['name'],
 					lat: vertices[target]['lat'], lng: vertices[target]['lng']});
