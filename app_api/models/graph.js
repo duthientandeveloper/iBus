@@ -24,7 +24,9 @@ var graphSchema = new mongoose.Schema({
 	polyline:[plSchema],
 	distance: [Number],
 	belongRoute:[Number],
-	nextStation:[Number]
+	nextStation:[Number],
+	lat:Number,
+	lng:Number
 });
 
 module.exports = mongoose.model('Graph',graphSchema);

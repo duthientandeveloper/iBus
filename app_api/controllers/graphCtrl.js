@@ -32,19 +32,21 @@ module.exports.init = function (req, res, next) {
                   belongRoute.push(dupSation.idRoute);
                 }
                 if (index == arrDupStation.length - 1) {
-                  callback(null,dupSation.id,dupSation.name,polyline,distance,belongRoute,nextStation);
+                  callback(null,dupSation.id,dupSation.name,polyline,distance,belongRoute,nextStation,dupSation.lat,dupSation.lng);
                 }
               });
             }
           },
-          (id,name,polyline,distance,belongRoute,nextStation,callback)=>{
+          (id,name,polyline,distance,belongRoute,nextStation,lat,lng,callback)=>{
             let newGraph = Graph({
             id: idStation,
             name: name,
             polyline: polyline,
             distance: distance,
             belongRoute: belongRoute,
-            nextStation: nextStation
+            nextStation: nextStation,
+            lat:lat,
+            lng:lng
           });
           console.log('Xong' +id);
           newGraph.save(function (err) {
